@@ -1,0 +1,5 @@
+workflow-aggregator
+git
+github
+credentials-binding
+ws-cleanup

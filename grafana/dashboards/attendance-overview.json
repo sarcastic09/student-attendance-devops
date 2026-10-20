@@ -1,0 +1,25 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {"type":"stat","title":"Application Up","gridPos":{"h":5,"w":6,"x":0,"y":0},"datasource":{"type":"prometheus","uid":"Prometheus"},"targets":[{"expr":"up{job=\"student-attendance\"}","refId":"A"}],"fieldConfig":{"defaults":{"mappings":[{"type":"value","options":{"0":{"text":"DOWN","color":"red"},"1":{"text":"UP","color":"green"}}}],"thresholds":{"mode":"absolute","steps":[{"color":"red","value":0},{"color":"green","value":1}]}}}},
+    {"type":"timeseries","title":"Host CPU Usage (%)","gridPos":{"h":8,"w":12,"x":6,"y":0},"datasource":{"type":"prometheus","uid":"Prometheus"},"targets":[{"expr":"100 * (1 - avg by (instance) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m])))","legendFormat":"CPU usage","refId":"A"}]},
+    {"type":"timeseries","title":"Host Memory Usage (%)","gridPos":{"h":8,"w":12,"x":0,"y":5},"datasource":{"type":"prometheus","uid":"Prometheus"},"targets":[{"expr":"100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)","legendFormat":"Memory usage","refId":"A"}]},
+    {"type":"timeseries","title":"Application Requests / Second","gridPos":{"h":8,"w":12,"x":12,"y":8},"datasource":{"type":"prometheus","uid":"Prometheus"},"targets":[{"expr":"sum(rate(flask_http_request_total[5m]))","legendFormat":"requests/s","refId":"A"}]},
+    {"type":"timeseries","title":"Container CPU Usage","gridPos":{"h":8,"w":12,"x":0,"y":13},"datasource":{"type":"prometheus","uid":"Prometheus"},"targets":[{"expr":"sum by (name) (rate(container_cpu_usage_seconds_total{name=~\".*student-attendance-app.*\"}[5m])) * 100","legendFormat":"{{name}}","refId":"A"}]},
+    {"type":"timeseries","title":"Container Memory Usage (bytes)","gridPos":{"h":8,"w":12,"x":12,"y":16},"datasource":{"type":"prometheus","uid":"Prometheus"},"targets":[{"expr":"container_memory_working_set_bytes{name=~\".*student-attendance-app.*\"}","legendFormat":"{{name}}","refId":"A"}]}
+  ],
+  "refresh":"15s",
+  "schemaVersion":39,
+  "tags":["devops","attendance"],
+  "templating":{"list":[]},
+  "time":{"from":"now-1h","to":"now"},
+  "timepicker":{},
+  "timezone":"browser",
+  "title":"Student Attendance - DevOps Overview",
+  "uid":"attendance-devops",
+  "version":1
+}
