@@ -16,7 +16,7 @@ pipeline {
       steps { sh '. .venv/bin/activate && python3 -m compileall -q app.py tests && test -f Dockerfile && test -f docker-compose.yml' }
     }
     stage('Automated Tests') {
-      steps { sh '. .venv/bin/activate && pytest -v' }
+      steps { sh '. .venv/bin/activate && PYTHONPATH="$WORKSPACE" pytest -v' }
     }
     stage('Docker Build') {
       steps { sh 'docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} -t ${IMAGE_NAME}:latest .' }
